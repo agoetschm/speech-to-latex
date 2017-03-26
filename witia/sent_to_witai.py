@@ -5,7 +5,7 @@ rec = recorder()
 rec.record(5)
 
 
-payload = {'q': 'how are you?'}
+# payload = {'q': 'how are you?'}
 headers = {'Authorization': 'Bearer MFOK5ZXG4Q3I7MOTPGPEWILZLMNFEW7Q', "Content-Type": "audio/wav"}
 # r = requests.get('https://api.wit.ai/message', params=payload, headers=headers)
 f = open('file.wav', 'rb')
