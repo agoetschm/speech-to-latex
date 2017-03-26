@@ -1,8 +1,13 @@
 from wit import Wit
 # https://github.com/wit-ai/pywit
 import os
+from witai.record import *
 
-client = Wit(access_token=os.environ.get('WIT_TOKEN'))
+rec = recorder()
+rec.record(5)
+
+
+client = Wit(access_token='MFOK5ZXG4Q3I7MOTPGPEWILZLMNFEW7Q')
 
 resp = None
 with open('file.wav', 'rb') as f:
