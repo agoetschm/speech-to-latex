@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speech to LaTeX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+
+</head>
+<body style="min-height: 100%">
+
+<nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo center">Speech to LaTeX</a>
+    </div>
+</nav>
+<div class="section" id="index-banner">
+    <div class="container">
+        <br><br>
+        <div class="row">
+            <h5 class="col s12 light">Result of conversion:</h5>
+        </div>
+        <div class="row">
+            <div class="card-panel white">
+                Voice recognition : {{ wit_result }}<br/>
+                Wolfram Alpha interpretation : {{ wolfram_interpretation }}<br/>
+                After preprocessing : {{ preprocessed }}<br/>
+                LaTeX result : <img src="/get_latex/{{ latex }}" alt="Latex result image">
+            </div>
+        </div>
+
+    </div>
+    <br/><br/>
+    <div class="row center">
+        <a href="/" class="btn-large waves-effect waves-light orange">Send an other audio file</a>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+<script>
+    (function ($) {
+        $(function () {
+
+        });
+    })(jQuery);
+
+</script>
+</body>
+</html>
