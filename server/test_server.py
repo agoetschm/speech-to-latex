@@ -20,16 +20,22 @@ def process():
         f.save('audio.wav')
 
         (wit_result, wolfram_interpretation, preprocessed, image_name) = speech_to_latex('audio')
-        # wit_result = "one plus two"
-        # wolfram_interpretation = "1 + 2"
-        # preprocessed = "1 + 2"
-        latex = image_name
-    return render_template('result.html', wit_result=wit_result,
-                           wolfram_interpretation=wolfram_interpretation,
-                           preprocessed=preprocessed,
-                           latex=latex)
+        return render_template('result.html', wit_result=wit_result,
+                               wolfram_interpretation=wolfram_interpretation,
+                               preprocessed=preprocessed,
+                               latex=image_name)
 
 
 @app.route('/get_latex/<filename>')
 def get_image(filename):
     return send_file(filename, mimetype='image/png')
+
+
+@app.route('/run_with_sample')
+def run_with_sample():
+    (wit_result, wolfram_interpretation, preprocessed, image_name) = speech_to_latex('../audio_input')
+
+    return render_template('result.html', wit_result=wit_result,
+                           wolfram_interpretation=wolfram_interpretation,
+                           preprocessed=preprocessed,
+                           latex=image_name)

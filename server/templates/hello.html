@@ -21,29 +21,43 @@
                 LaTeX syntax!</h5>
         </div>
         <div class="row center">
-            <a href="#" id="try_it_but"
+            <a href="#!" id="try_it_but"
                class="btn-large waves-effect waves-light orange">Try It Now!</a>
         </div>
         <br><br>
 
         <div id="record" class="row center">
             <div class="col s12 m10 offset-m1">
-                <h6 class="light">Recording in the browser is in development, for now simply upload a .wav file:</h6>
-                <form action="/process_audio" method="post" enctype="multipart/form-data">
-                    <div class="file-field input-field">
-                        <div class="btn light-blue lighten-1">
-                            <span>File</span>
-                            <input type="file" accept="audio/*;capture=microphone" name="audio_input" id="audio_input">
+                <div class="card-panel">
+                    <h6 class="light">Recording in the browser is in development, for now simply upload a .wav
+                        file:</h6>
+                    <form action="/process_audio" method="post" enctype="multipart/form-data">
+                        <div class="file-field input-field">
+                            <div class="btn light-blue lighten-1">
+                                <span>File</span>
+                                <input type="file" accept="audio/*;capture=microphone" name="audio_input"
+                                       id="audio_input">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
                         </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
-                        </div>
-                    </div>
-                    <input class="btn-large waves-effect waves-light light-blue lighten-1" type="submit" value="Send" name="submit">
-                </form>
+                        <input class="btn-large waves-effect waves-light light-blue lighten-1" type="submit"
+                               value="Send"
+                               name="submit">
+                    </form>
+                </div>
+                <br/>
+                <div class="row center">
+                    <h5>OR</h5>
+                </div>
+
+                <div class="row center">
+                    <a href="/run_with_sample"
+                       class="btn-large waves-effect waves-light light-blue lighten-1">Run with a sample</a>
+                </div>
             </div>
         </div>
-        <br><br>
 
     </div>
 </div>
