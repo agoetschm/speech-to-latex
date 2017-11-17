@@ -14,8 +14,16 @@ export class AppComponent {
   public record() {
     console.log("begin recording...")
 
-    this.speechToTextService.convertSpeechToText()
-      .subscribe(result => this.rawText = result.text())
+    navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(function(stream) {
+      console.log("on stream")
+      /* use the stream */
+    })
+    .catch(function(err) {
+      console.log("getUserMedia failed")
+    })
+    // this.speechToTextService.convertSpeechToText()
+    //   .subscribe(result => this.rawText = result.text())
 
 
   }

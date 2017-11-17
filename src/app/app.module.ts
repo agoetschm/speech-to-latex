@@ -9,12 +9,14 @@ import {Ng2PageScrollModule} from 'ng2-page-scroll';
 
 import { AppComponent } from './app.component';
 import { SpeechToTextService } from './speech-to-text.service';
+import { LatexComponent } from "./latex.component";
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LatexComponent
   ],
   imports: [
     BrowserModule,

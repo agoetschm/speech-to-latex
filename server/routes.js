@@ -1,5 +1,3 @@
-// from: https://scotch.io/tutorials/mean-app-with-angular-2-and-the-angular-cli
-
 const express = require('express');
 const router = express.Router();
 
