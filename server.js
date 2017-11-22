@@ -38,6 +38,24 @@ app.set('port', port);
 const server = http.createServer(app);
 
 /**
+ * Socket.io
+ */
+const io = require('socket.io')(server);
+app.use(express.static(path.join(__dirname, 'node_modules')));
+io.on('connection', function(socket) {
+  console.log('Client connected...');
+
+  socket.on('disconnect', function() {
+          console.log('user disconnected');
+  });
+
+  socket.on('join', function(data) {
+      console.log(data);
+      socket.emit('message', 'Hello from server');
+  });
+});
+
+/**
  * Listen on provided port, on all network interfaces.
  */
 server.listen(port, () => console.log(`API running on localhost:${port}`));

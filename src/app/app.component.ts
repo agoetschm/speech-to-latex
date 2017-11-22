@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SpeechToTextService } from "./speech-to-text.service";
+import { SocketService } from "./socket.service";
 
 @Component({
   selector: 'app-root',
@@ -9,19 +10,23 @@ import { SpeechToTextService } from "./speech-to-text.service";
 export class AppComponent {
   rawText: string;
 
-  constructor(private speechToTextService: SpeechToTextService) { }
+  constructor(private speechToTextService: SpeechToTextService,
+            private socketService: SocketService) { }
 
   public record() {
     console.log("begin recording...")
 
-    navigator.mediaDevices.getUserMedia({ audio: true })
-    .then(function(stream) {
-      console.log("on stream")
-      /* use the stream */
-    })
-    .catch(function(err) {
-      console.log("getUserMedia failed")
-    })
+    this.socketService.sendMessage("hi there")
+
+    // navigator.mediaDevices.getUserMedia({ audio: true })
+    // .then(function(stream) {
+    //   console.log("on stream")
+    //
+    // })
+    // .catch(function(err) {
+    //   console.log("getUserMedia failed")
+    // })
+
     // this.speechToTextService.convertSpeechToText()
     //   .subscribe(result => this.rawText = result.text())
 
