@@ -20,6 +20,11 @@ export class SocketService {
     this.socket.emit('join', message);
   }
 
+  sendAudio(blob: Blob, callback){
+    this.socket.emit('audio', blob);
+    this.socket.on('text', callback);
+  }
+
   getMessages() {
     let observable = new Observable(observer => {
 

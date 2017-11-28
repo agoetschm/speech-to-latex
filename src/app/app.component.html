@@ -21,7 +21,7 @@
   <div class="container">
     <h3 class="center white-text">Speech to Text</h3>
     <div class="row center">
-      <a (click)="record()" class="btn-floating btn-large waves-effect waves-light orange">
+      <a (click)="record()" [class.disabled]="recording" class="btn-floating btn-large waves-effect waves-light orange">
         <i class="large material-icons">keyboard_voice</i>
       </a>
     </div>

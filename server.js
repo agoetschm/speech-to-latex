@@ -21,10 +21,14 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // Set our api routes
 app.use('/api', api);
 
+app.use(express.static(path.join(__dirname, 'node_modules/opus-recorder/dist')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
+
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
+
 
 /**
  * Get port from environment and store in Express.
@@ -41,17 +45,24 @@ const server = http.createServer(app);
  * Socket.io
  */
 const io = require('socket.io')(server);
-app.use(express.static(path.join(__dirname, 'node_modules')));
+const speechApi = require('./server/speech-to-text')
 io.on('connection', function(socket) {
   console.log('Client connected...');
 
   socket.on('disconnect', function() {
-          console.log('user disconnected');
+    console.log('user disconnected');
   });
 
   socket.on('join', function(data) {
-      console.log(data);
-      socket.emit('message', 'Hello from server');
+    console.log(data);
+    socket.emit('message', 'Hello from server');
+  });
+
+  socket.on('audio', function(blob) {
+    console.log('got audio');
+    speechApi.recognize(blob, function(response){
+      socket.emit("text", response);
+    });
   });
 });
 
