@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { SocketService } from "./socket.service";
 
 @Injectable()
 export class SpeechToTextService {
 
-  constructor(private http: Http) { }
+  constructor(private socketService: SocketService) { }
 
-  convertSpeechToText(){
-    return this.http.get('/api/speech-to-text')
+  convertSpeechToText(blob: Blob, callback){
+    this.socketService.sendAudio(blob, callback)
   }
 
 }

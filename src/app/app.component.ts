@@ -14,14 +14,18 @@ declare const MediaRecorder: any;
 export class AppComponent {
   rawText: string
   recording: boolean
+  convertingToText: boolean
   mediaRecorder: any
   chunks: any = []
 
-  constructor(private speechToTextService: SpeechToTextService,
-    private socketService: SocketService) { }
+  constructor(private speechToTextService: SpeechToTextService) { }
+
+  public isTextEmpty(): boolean {
+    return this.rawText.length == 0
+  }
 
   public record() {
-    const rec = new Recorder({originalSampleRateOverride: 16000})
+    const rec = new Recorder({ originalSampleRateOverride: 16000 })
     if (!Recorder.isRecordingSupported()) {
       console.log("recording not supported")
       // TODO toast
@@ -30,9 +34,11 @@ export class AppComponent {
     rec.addEventListener("dataAvailable", (e) => {
       console.log("data available")
       // const audio = new Audio();
-      var blob = new Blob( [e.detail], { type: 'audio/ogg; codecs=opus' } )
-      this.socketService.sendAudio(blob, (text) => {
+      var blob = new Blob([e.detail], { type: 'audio/ogg; codecs=opus' })
+      this.convertingToText = true
+      this.speechToTextService.convertSpeechToText(blob, (text) => {
         this.rawText = text
+        this.convertingToText = false
       })
       // audio.src = window.URL.createObjectURL(blob);
       // audio.load();
@@ -54,51 +60,6 @@ export class AppComponent {
     rec.initStream()
 
 
-
-    // this.socketService.sendMessage("hi there")
-
-
-
-    // navigator.mediaDevices.getUserMedia({ audio: true })
-    //   .then((stream) => {
-    //     console.log("on stream")
-    //     this.mediaRecorder = new MediaRecorder(stream);
-    //     this.mediaRecorder.onstart = (e) => {
-    //       console.log("begin recording...")
-    //       this.chunks = []
-    //     };
-    //     this.mediaRecorder.ondataavailable = (e) => {
-    //       this.chunks.push(e.data);
-    //       console.log("recording...")
-    //     };
-    //     this.mediaRecorder.onstop = (e) => {
-    //       console.log("end of recording")
-    //       const blob = new Blob(this.chunks, { 'type': 'audio/ogg; codecs=opus' });
-    //       this.socketService.sendAudio(blob);
-    //       // const audio = new Audio();
-    //       // const blob = new Blob(this.chunks, { 'type': 'audio/ogg; codecs=opus' });
-    //       // this.chunks.length = 0;
-    //       // audio.src = window.URL.createObjectURL(blob);
-    //       // audio.load();
-    //       // audio.play();
-    //     };
-    //
-    //
-    //     // Start recording
-    //     this.mediaRecorder.start()
-    //     this.recording = true
-    //
-    //     // Stop recording after 5 seconds and broadcast it to server
-    //     setTimeout(() => {
-    //       this.recording = false
-    //       this.mediaRecorder.stop()
-    //       stream.getTracks()[0].stop()
-    //     }, 5000);
-    //   })
-    //   .catch((err) => {
-    //     // TODO toast
-    //     console.log("getUserMedia failed : " + err)
-    //   })
 
     // this.speechToTextService.convertSpeechToText()
     //   .subscribe(result => this.rawText = result.text())

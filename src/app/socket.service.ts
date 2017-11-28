@@ -25,16 +25,16 @@ export class SocketService {
     this.socket.on('text', callback);
   }
 
-  getMessages() {
-    let observable = new Observable(observer => {
-
-      this.socket.on('message', (data) => {
-        observer.next(data);
-      });
-      return () => {
-        this.socket.disconnect();
-      };
-    })
-    return observable;
-  }
+  // getMessages() {
+  //   let observable = new Observable(observer => {
+  //
+  //     this.socket.on('message', (data) => {
+  //       observer.next(data);
+  //     });
+  //     return () => {
+  //       this.socket.disconnect();
+  //     };
+  //   })
+  //   return observable;
+  // }
 }
