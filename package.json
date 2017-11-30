@@ -29,6 +29,7 @@
     "hammerjs": "^2.0.8",
     "jquery": "^2.2.4",
     "materialize-css": "^0.100.2",
+    "ng-katex": "^0.3.37",
     "ng2-page-scroll": "^4.0.0-beta.12",
     "node-record-lpcm16": "^0.3.0",
     "opus-recorder": "^1.2.0",

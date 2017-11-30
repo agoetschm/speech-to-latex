@@ -17,6 +17,7 @@ export class AppComponent {
   convertingToText: boolean
   mediaRecorder: any
   chunks: any = []
+  latexText: string = "\sum_{i=1}^nx_i";
 
   constructor(private speechToTextService: SpeechToTextService) { }
 
@@ -58,6 +59,9 @@ export class AppComponent {
     })
 
     rec.initStream()
+      .catch((err) => {
+        console.log("error trying to record: " + err.message)
+      })
 
 
 
@@ -65,5 +69,9 @@ export class AppComponent {
     //   .subscribe(result => this.rawText = result.text())
 
 
+  }
+
+  convertToLatex() {
+    console.log("convert to latex")
   }
 }

@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 
 import { MaterializeModule } from 'angular2-materialize';
-
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
+import { KatexModule } from 'ng-katex';
 
 import { AppComponent } from './app.component';
 import { LatexComponent } from "./latex.component";
@@ -24,7 +24,8 @@ import { SocketService } from './socket.service';
     FormsModule,
     HttpModule,
     MaterializeModule,
-    Ng2PageScrollModule
+    Ng2PageScrollModule,
+    KatexModule
   ],
   providers: [
     SpeechToTextService,

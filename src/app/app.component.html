@@ -29,11 +29,21 @@
       <div class="indeterminate"></div>
     </div>
     <div class="card-panel">
-      <textarea id="recorded-text" [disabled]="recording || convertingToText" [(ngModel)]="rawText" class="materialize-textarea" placeholder="Recorded speech..."></textarea>
+      <textarea [disabled]="recording || convertingToText" [(ngModel)]="rawText" class="materialize-textarea" placeholder="Recorded speech..."></textarea>
     </div>
     <div class="row center">
-      <a pageScroll [class.disabled]="rawText == undefined || rawText.length < 1" href="#convert-to-latex" id="try_it_but"
+      <a pageScroll (click)="convertToLatex()" href="#convert-to-latex" [class.disabled]="rawText == undefined || rawText.length < 1"
            class="btn-large waves-effect waves-light orange">Convert To LaTeX</a>
     </div>
+  </div>
+</div>
+
+<div id="convert-to-latex" class="full-screen section">
+  <div class="container">
+    <h3 class="center">... to <latex></latex></h3>
+    <div class="card-panel">
+      <textarea [disabled]="convertingToLatex" [(ngModel)]="latexText" class="materialize-textarea" placeholder="LaTeX syntax..."></textarea>
+    </div>
+    <ng-katex [equation]="latexText"></ng-katex>
   </div>
 </div>
