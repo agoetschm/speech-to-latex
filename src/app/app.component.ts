@@ -1,6 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { SpeechToTextService } from "./speech-to-text.service";
 import { SocketService } from "./socket.service";
+
+import { KatexOptions } from 'ng-katex';
+
+import { DOCUMENT} from '@angular/common';
+import { PageScrollConfig, PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
 
 import * as Recorder from 'opus-recorder';
 
@@ -18,9 +23,16 @@ export class AppComponent {
   convertingToText: boolean
   mediaRecorder: any
   chunks: any = []
-  latexText: string = "\sum_{i=1}^nx_i";
+  latexText: string = "\\sum_{i=1}^nx_i";
 
-  constructor(private speechToTextService: SpeechToTextService) { }
+  stopRecFunc: () => void
+
+  katexOptions: KatexOptions = {
+    displayMode: true,
+  }
+
+  constructor(private speechToTextService: SpeechToTextService,
+    private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any) { }
 
   public isTextEmpty(): boolean {
     return this.rawText.length == 0
@@ -41,6 +53,8 @@ export class AppComponent {
       this.speechToTextService.convertSpeechToText(blob, (text) => {
         this.rawText = text
         this.convertingToText = false
+        this.gotToLatex()
+        this.convertToLatex()
       })
       // audio.src = window.URL.createObjectURL(blob);
       // audio.load();
@@ -51,12 +65,13 @@ export class AppComponent {
       rec.start()
       console.log("started recording")
       this.recording = true
-      setTimeout(() => {
+      this.stopRecFunc = () => {
         this.recording = false
         rec.stop()
         console.log("stopped recording")
         //rec.clearStream()
-      }, 5000);
+      }
+      setTimeout(this.stopRecFunc, 25000);
     })
 
     rec.initStream()
@@ -72,7 +87,48 @@ export class AppComponent {
 
   }
 
+  stopRecording(){
+    this.stopRecFunc()
+  }
+
+  gotToLatex() {
+    let pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(this.document, '#convert-to-latex');
+    this.pageScrollService.start(pageScrollInstance);
+  }
+
   convertToLatex() {
     console.log("convert to latex")
+    const dict = {
+      "zero": "0",
+      "one": "1",
+      "two": "2",
+      "three": "3",
+      "four": "4",
+      "five": "5",
+      "six": "6",
+      "seven": "7",
+      "eight": "8",
+      "nine": "9",
+      "equals": "=",
+      "fraction": "\\frac{",
+      "over": "}{",
+      "/": "}{",
+      "and": "end", // maybe I just can't pronounce it...
+      "end": "}",
+      "power": "^",
+      "sum": "\\sum",
+      "from": "_{",
+      "to": "}^{",
+      "of": "}{",
+      "sum }": "sum", // dirty
+      "squared": "^2"
+    }
+    var text = this.rawText.toLowerCase()
+
+    for (var key in dict) {
+      text = text.replace(new RegExp(key, "g"), dict[key])
+    }
+
+    this.latexText = text
   }
 }

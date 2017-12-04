@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 
-import { MaterializeModule } from 'angular2-materialize';
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
+import { MaterializeModule } from 'angular2-materialize';
 import { KatexModule } from 'ng-katex';
 
 import { AppComponent } from './app.component';

@@ -17,19 +17,44 @@
   </div>
 </div>
 
-<div id="voice-recording" class="light-blue lighten-1 full-screen section">
+<div id="voice-recording" class="light-blue lighten-1 section">
   <div class="container">
-    <h3 class="center white-text">Speech to Text</h3>
     <div class="row center">
-      <a (click)="record()" [class.disabled]="recording || convertingToText" [class.pulse]="recording" class="btn-floating btn-large waves-effect waves-light orange">
+      <h5 class="white-text">
+        Record your math expression
+        <a class="btn-flat">
+          <i class="white-text large material-icons tooltipped"
+          data-tooltip="For now the conversion to LaTeX is very elementary,
+          only the following expresions are supported:
+          <ul>
+            <li>zero, one, ..., nine</li>
+            <li>fraction ... over ... end</li>
+            <li>sum [from ... to ...] of ... end</li>
+            <li>... power ... (single character)</li>
+          </ul>"
+          data-html="true"
+          materialize="tooltip">help</i>
+        </a>
+      </h5>
+    </div>
+    <div class="row center">
+      <a (click)="record()" [class.hide]="recording" [class.disabled]="convertingToText"
+        class="btn-floating btn-large waves-effect waves-light orange tooltipped"
+        data-tooltip="Max 25 seconds.<br/>Try to say 'sum from x equals 1 to 5 of x power 3 end'"
+        data-html="true"
+        materialize="tooltip">
         <i class="large material-icons">keyboard_voice</i>
       </a>
+      <a (click)="stopRecording()" [class.hide]="!recording" class="btn-floating btn-large waves-effect waves-light red pulse">
+        <i class="large material-icons">stop</i>
+      </a>
+
     </div>
     <div class="progress" [class.hidden]="!convertingToText">
       <div class="indeterminate"></div>
     </div>
     <div class="card-panel">
-      <textarea [disabled]="recording || convertingToText" [(ngModel)]="rawText" class="materialize-textarea" placeholder="Recorded speech..."></textarea>
+      <textarea [disabled]="recording || convertingToText" [(ngModel)]="rawText" class="materialize-textarea" placeholder="Recorded speech (can take a few seconds, please be patient)"></textarea>
     </div>
     <div class="row center">
       <a pageScroll (click)="convertToLatex()" href="#convert-to-latex" [class.disabled]="rawText == undefined || rawText.length < 1"
@@ -38,20 +63,25 @@
   </div>
 </div>
 
-<div id="convert-to-latex" class="full-screen section">
+<div id="convert-to-latex" class="section">
   <div class="container">
-    <h3 class="center">... to <latex></latex></h3>
+    <div class="row center">
+      <h5><latex></latex> syntax and preview</h5>
+    </div>
     <div class="card-panel">
       <textarea [disabled]="convertingToLatex" [(ngModel)]="latexText" class="materialize-textarea" placeholder="LaTeX syntax..."></textarea>
     </div>
-    <ng-katex [equation]="latexText"></ng-katex>
+    <div class="card-panel">
+      <ng-katex [equation]="latexText" [options]=katexOptions></ng-katex>
+    </div>
+
   </div>
 </div>
 
 <footer class="page-footer light-blue lighten-1">
   <div class="footer-copyright">
     <div class="container">
-      © {{actualYear}} Anselme Goetschmann. With the idea of <a class="white-text" href="https://github.com/JackieGauthier">Jackie</a>.
+      © {{actualYear}} <a class="white-text" href="http://agoetschm.com">agoetschm</a> and <a class="white-text" href="https://github.com/JackieGauthier">jackie</a>
       <div class="grey-text text-lighten-3 right">
         Made with <a class="white-text" href="https://angular.io/">Angular</a>,
         <a class="white-text" href="http://materializecss.com/">Materialize</a>,

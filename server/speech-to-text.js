@@ -53,6 +53,9 @@ function recognizeSync(blob, callback){
     encoding: encoding,
     sampleRateHertz: sampleRateHertz,
     languageCode: languageCode,
+    speechContexts: {
+      phrases: ["fraction", "end", "one", "to", "sum", "of"]
+    },
   };
   const audio = {
     content: blob.toString('base64'), //fs.readFileSync(filename).toString('base64'),
@@ -66,7 +69,7 @@ function recognizeSync(blob, callback){
   console.log('sending request...');
   client.getProjectId(function(err, str){
     console.log('project id ' + str);
-  });
+  })
   // Detects speech in the audio file
   client
     .recognize(request)
