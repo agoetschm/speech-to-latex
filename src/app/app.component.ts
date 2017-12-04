@@ -12,6 +12,7 @@ declare const MediaRecorder: any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  actualYear = (new Date()).getFullYear()
   rawText: string
   recording: boolean
   convertingToText: boolean
