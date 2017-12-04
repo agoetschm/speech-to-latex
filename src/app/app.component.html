@@ -69,7 +69,7 @@
       <h5><latex></latex> syntax and preview</h5>
     </div>
     <div class="card-panel">
-      <textarea [disabled]="convertingToLatex" [(ngModel)]="latexText" class="materialize-textarea" placeholder="LaTeX syntax..."></textarea>
+      <textarea [(ngModel)]="latexText" class="materialize-textarea" placeholder="LaTeX syntax..."></textarea>
     </div>
     <div class="card-panel">
       <ng-katex [equation]="latexText" [options]=katexOptions></ng-katex>
