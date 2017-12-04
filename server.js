@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // Set our api routes
 app.use('/api', api);
 
+app.use(express.static(path.join(__dirname, 'public'))); // for the katex fonts
 app.use(express.static(path.join(__dirname, 'node_modules/opus-recorder/dist')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
