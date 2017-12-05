@@ -71,7 +71,7 @@ export class AppComponent {
         console.log("stopped recording")
         //rec.clearStream()
       }
-      setTimeout(this.stopRecFunc, 25000);
+      setTimeout(this.stopRecording, 25000);
     })
 
     rec.initStream()
@@ -89,6 +89,7 @@ export class AppComponent {
 
   stopRecording(){
     this.stopRecFunc()
+    this.stopRecFunc = () => null
   }
 
   gotToLatex() {

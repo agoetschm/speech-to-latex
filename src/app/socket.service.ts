@@ -6,10 +6,11 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class SocketService {
-  private url = 'http://localhost:3000';
+  private url = window.location.href;//'http://localhost:5000';
   private socket;
 
   constructor() {
+    console.log(this.url)
     this.socket = io(this.url);
     this.socket.on('message', (data) => {
       console.log("got from server: " + data)
