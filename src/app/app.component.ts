@@ -4,7 +4,7 @@ import { SocketService } from "./socket.service";
 
 import { KatexOptions } from 'ng-katex';
 
-import { DOCUMENT} from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { PageScrollConfig, PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
 
 import * as Recorder from 'opus-recorder';
@@ -87,9 +87,11 @@ export class AppComponent {
 
   }
 
-  stopRecording(){
-    this.stopRecFunc()
-    this.stopRecFunc = () => null
+  stopRecording() {
+    if (this.stopRecFunc) {
+      this.stopRecFunc()
+      this.stopRecFunc = undefined
+    }
   }
 
   gotToLatex() {
